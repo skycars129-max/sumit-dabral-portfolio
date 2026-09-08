@@ -1,0 +1,13 @@
+{
+  "name": "sumit-dabral-portfolio",
+  "version": "1.0.0",
+  "description": "A standalone, dark-cinematic portfolio site. Plain HTML/CSS/JS — no build step.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve .",
+    "fetch": "node scripts/fetch-assets.mjs"
+  },
+  "license": "UNLICENSED"
+}

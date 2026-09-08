@@ -1,0 +1,14 @@
+# Local tooling / dev artifacts
+.claude/
+.playwright-mcp/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Node (only if you later add scripts with deps)
+node_modules/
