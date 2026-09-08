@@ -320,6 +320,34 @@
     nums.forEach(function (el) { obs.observe(el); });
   }
 
+  /* ---------- mobile nav ---------- */
+  function mobileNav() {
+    var nav = document.querySelector('.nav');
+    var toggle = document.getElementById('navToggle');
+    var links = document.getElementById('navLinks');
+    if (!nav || !toggle || !links) return;
+    var setOpen = function (open) {
+      nav.classList.toggle('nav--open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+    toggle.addEventListener('click', function () {
+      setOpen(!nav.classList.contains('nav--open'));
+    });
+    links.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setOpen(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && nav.classList.contains('nav--open')) setOpen(false);
+    });
+    try {
+      window.matchMedia('(min-width: 561px)').addEventListener('change', function (e) {
+        if (e.matches) setOpen(false);
+      });
+    } catch (err) { /* older browser: harmless */ }
+  }
+
   /* ---------- ambient timecode ---------- */
   function timecode() {
     var el = document.querySelector('[data-tc]');
@@ -346,5 +374,6 @@
   scrollProgress();
   scrollSpy();
   countUp();
+  mobileNav();
   timecode();
 })();
