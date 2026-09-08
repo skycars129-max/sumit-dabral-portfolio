@@ -70,14 +70,14 @@ body::after {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 42vh;
+  height: 48vh;
   z-index: -2;
   pointer-events: none;
   background:
-    radial-gradient(90% 130% at 50% 128%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 68%),
-    radial-gradient(60% 100% at 82% 130%, color-mix(in srgb, var(--accent-warm) 14%, transparent), transparent 70%);
-  opacity: calc(var(--sp, 0) * 0.9);
-  transition: opacity 0.25s linear;
+    radial-gradient(110% 150% at 50% 145%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 80%),
+    radial-gradient(80% 120% at 84% 150%, color-mix(in srgb, var(--accent-warm) 12%, transparent), transparent 82%);
+  opacity: calc(var(--sp, 0) * 0.8);
+  transition: opacity 0.3s linear;
 }
 
 .grain {
@@ -800,34 +800,33 @@ a.contact__card:hover { border-color: var(--violet); transform: translateY(-3px)
   overflow: hidden;
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: clamp(3.5rem, 8vw, 6rem) var(--edge) 2.2rem;
-  border-top: var(--hairline);
+  padding: clamp(4rem, 9vw, 7rem) var(--edge) 2.4rem;
 }
 .foot > :not(.foot__glow) { position: relative; z-index: 1; }
 
-/* animated gradient sweep behind the footer */
+/* soft radial glow that melts into the section above — no edges, no bands */
 .foot__glow {
   position: absolute;
-  left: -8%;
-  right: -8%;
-  bottom: -25%;
-  height: 118%;
+  left: -25%;
+  right: -25%;
+  bottom: -45%;
+  height: 165%;
   z-index: 0;
   pointer-events: none;
-  background: linear-gradient(
-    100deg,
-    transparent 0%,
-    color-mix(in srgb, var(--accent) 34%, transparent) 20%,
-    color-mix(in srgb, var(--accent-2) 42%, transparent) 40%,
-    color-mix(in srgb, var(--accent-warm) 24%, transparent) 62%,
-    transparent 86%
-  );
-  background-size: 240% 100%;
-  filter: blur(54px) saturate(125%);
-  -webkit-mask-image: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.45) 55%, transparent 100%);
-  mask-image: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.45) 55%, transparent 100%);
-  opacity: 0.65;
-  animation: heroGlow 17s ease-in-out infinite alternate;
+  background:
+    radial-gradient(48% 60% at 20% 100%, color-mix(in srgb, var(--accent) 55%, transparent), transparent 72%),
+    radial-gradient(46% 58% at 56% 110%, color-mix(in srgb, var(--accent-2) 52%, transparent), transparent 74%),
+    radial-gradient(54% 66% at 88% 104%, color-mix(in srgb, var(--accent-warm) 36%, transparent), transparent 76%);
+  filter: blur(70px) saturate(122%);
+  -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 80%);
+  mask-image: linear-gradient(to top, #000 0%, transparent 80%);
+  opacity: 0.85;
+  animation: footGlow 22s ease-in-out infinite alternate;
+}
+@keyframes footGlow {
+  0%   { transform: translate3d(0, 0, 0) scale(1); opacity: 0.68; }
+  50%  { opacity: 0.95; }
+  100% { transform: translate3d(-3%, 1.5%, 0) scale(1.09); opacity: 0.76; }
 }
 
 .foot__end { max-width: 42ch; }
@@ -852,16 +851,28 @@ a.contact__card:hover { border-color: var(--violet); transform: translateY(-3px)
   color: transparent;
 }
 .foot__line {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 1.2rem;
   flex-wrap: wrap;
-  margin-top: clamp(2.6rem, 6vw, 4rem);
-  padding-top: 1.5rem;
-  border-top: var(--hairline);
+  margin-top: clamp(2.8rem, 6vw, 4.2rem);
+  padding-top: 1.6rem;
   font-family: var(--f-mono);
   font-size: 0.72rem;
   letter-spacing: 0.1em;
+}
+.foot__line::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--line-2) 90%, transparent),
+    color-mix(in srgb, var(--line-2) 30%, transparent) 45%,
+    transparent 80%);
 }
 .foot__mono { color: var(--faint); }
 .foot__note { color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; }
