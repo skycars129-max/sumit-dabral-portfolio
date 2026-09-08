@@ -8,7 +8,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=14" />
+  <link rel="stylesheet" href="styles.css?v=17" />
+  <script>
+    document.documentElement.classList.add('js');
+    setTimeout(function () { document.documentElement.classList.add('ready'); }, 1700);
+  </script>
 </head>
 <body>
   <span id="top" aria-hidden="true"></span>
@@ -38,7 +42,7 @@
     <div class="hero__aurora" aria-hidden="true"></div>
     <div class="hero__glow" aria-hidden="true"></div>
 
-    <div class="viewfinder" aria-hidden="true">
+    <div class="viewfinder hero-cue" style="--cue: 5" aria-hidden="true">
       <span class="vf vf--tl"></span><span class="vf vf--tr"></span>
       <span class="vf vf--bl"></span><span class="vf vf--br"></span>
       <span class="vf__rec">● REC</span>
@@ -47,18 +51,18 @@
     </div>
 
     <div class="hero__inner">
-      <p class="hero__eyebrow">Portfolio — 2025</p>
+      <p class="hero__eyebrow hero-cue" style="--cue: 1">Portfolio — 2025</p>
       <h1 class="hero__name">Sumit<br />Dabral</h1>
-      <p class="hero__roles">
+      <p class="hero__roles hero-cue" style="--cue: 2">
         <span>Video Editor</span><i>/</i><span>Graphic Designer</span><i>/</i><span>Motion Graphic Designer</span><i>/</i><span>3D Artist</span>
       </p>
-      <p class="hero__thesis">
+      <p class="hero__thesis hero-cue" style="--cue: 3">
         I partner with brands, startups, and global teams to shape how their ideas look
         and move — video edited with intent, motion and 3D built with real craft, and
         graphic design that keeps a brand consistent everywhere. Thoughtful work,
         delivered on time, made to last.
       </p>
-      <div class="hero__cta">
+      <div class="hero__cta hero-cue" style="--cue: 4">
         <a class="btn btn--primary" href="#work"><span>View the work</span><span class="btn__arrow">→</span></a>
         <a class="btn" href="Sumit_Dabral_CV.pdf" download><span>Download résumé</span></a>
       </div>
@@ -114,6 +118,7 @@
 
     <div class="projects">
       <a class="proj reveal" href="https://www.youtube.com/watch?v=13_OG5ZsAAc" target="_blank" rel="noopener">
+        <span class="proj__frame" aria-hidden="true"><img loading="lazy" alt="" src="assets/img/proj-speakx.jpg" /></span>
         <span class="proj__no">01</span>
         <div class="proj__body">
           <span class="proj__meta">SpeakX AI · Product Film</span>
@@ -128,6 +133,7 @@
       </a>
 
       <a class="proj reveal" href="https://www.youtube.com/watch?v=D01MBSNDWUE" target="_blank" rel="noopener">
+        <span class="proj__frame" aria-hidden="true"><img loading="lazy" alt="" src="assets/img/proj-podcast.jpg" /></span>
         <span class="proj__no">02</span>
         <div class="proj__body">
           <span class="proj__meta">Salaah Group of Startups · Podcast</span>
@@ -141,6 +147,7 @@
       </a>
 
       <a class="proj reveal" href="https://www.instagram.com/neurogen.app" target="_blank" rel="noopener">
+        <span class="proj__frame" aria-hidden="true"><img loading="lazy" alt="" src="assets/img/graphic-neurogen-01.jpg" /></span>
         <span class="proj__no">03</span>
         <div class="proj__body">
           <span class="proj__meta">Neurogen · Social</span>
@@ -155,6 +162,7 @@
       </a>
 
       <a class="proj reveal" href="#work" data-filter="animated">
+        <span class="proj__frame" aria-hidden="true"><img loading="lazy" alt="" src="assets/img/proj-animated.jpg" /></span>
         <span class="proj__no">04</span>
         <div class="proj__body">
           <span class="proj__meta">Group Project</span>
@@ -324,9 +332,16 @@
   </section>
 
   <footer class="foot">
-    <span class="foot__name">Sumit Dabral</span>
-    <span class="foot__mono" data-year>© 2024</span>
-    <a class="foot__top" href="#top">Back to top ↑</a>
+    <div class="foot__glow" aria-hidden="true"></div>
+    <div class="foot__end">
+      <span class="foot__cue">// End of reel</span>
+      <p class="foot__big">Sumit<br />Dabral</p>
+    </div>
+    <div class="foot__line">
+      <span class="foot__mono" data-year>© 2025</span>
+      <span class="foot__note">Video · Motion · 3D · Graphic Design</span>
+      <a class="foot__top" href="#top">Back to top ↑</a>
+    </div>
   </footer>
 
   <!-- ===== LIGHTBOX ===== -->

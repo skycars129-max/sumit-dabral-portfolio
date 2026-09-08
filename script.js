@@ -215,7 +215,9 @@
     var tick = function () {
       var max = root.scrollHeight - root.clientHeight;
       var p = max > 0 ? (window.pageYOffset || root.scrollTop) / max : 0;
-      bar.style.width = (Math.max(0, Math.min(1, p)) * 100).toFixed(2) + '%';
+      p = Math.max(0, Math.min(1, p));
+      bar.style.width = (p * 100).toFixed(2) + '%';
+      root.style.setProperty('--sp', p.toFixed(3));
     };
     var queued = false;
     window.addEventListener('scroll', function () {
@@ -245,6 +247,79 @@
     ids.forEach(function (id) { spy.observe(document.getElementById(id)); });
   }
 
+  /* ---------- hero title-card entrance ---------- */
+  function heroIntro() {
+    var name = document.querySelector('.hero__name');
+    if (name) {
+      if (reduceMotion) {
+        name.classList.add('is-cast');
+      } else {
+        var i = 0;
+        var frag = document.createDocumentFragment();
+        Array.prototype.forEach.call(name.childNodes, function (node) {
+          if (node.nodeType === 3) {
+            node.textContent.split('').forEach(function (chr) {
+              var s = document.createElement('span');
+              s.className = 'ch';
+              s.textContent = chr === ' ' ? ' ' : chr;
+              s.style.setProperty('--i', i++);
+              frag.appendChild(s);
+            });
+          } else {
+            frag.appendChild(node.cloneNode(true));
+          }
+        });
+        name.textContent = '';
+        name.appendChild(frag);
+        var cast = function () { name.classList.add('is-cast'); };
+        requestAnimationFrame(function () { requestAnimationFrame(cast); });
+        setTimeout(cast, 600);
+      }
+    }
+    var cues = document.querySelectorAll('.hero-cue');
+    var castCues = function () {
+      cues.forEach(function (el) { el.classList.add('is-cast'); });
+    };
+    if (reduceMotion) {
+      castCues();
+    } else {
+      requestAnimationFrame(castCues);
+      setTimeout(castCues, 600);
+    }
+  }
+
+  /* ---------- stat count-up ---------- */
+  function countUp() {
+    var nums = document.querySelectorAll('.stats__num');
+    if (!nums.length || reduceMotion) return;
+    var parse = function (txt) {
+      var m = txt.trim().match(/^(\d+)\s*([KkMm]?\+?)$/);
+      return m ? { target: parseInt(m[1], 10), suffix: m[2] || '' } : null;
+    };
+    var run = function (el, info) {
+      var start = null, dur = 1200;
+      var tick = function (t) {
+        if (!start) start = t;
+        var p = Math.min(1, (t - start) / dur);
+        var e = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(info.target * e) + info.suffix;
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = info.target + info.suffix;
+      };
+      el.textContent = '0' + info.suffix;
+      requestAnimationFrame(tick);
+    };
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        obs.unobserve(en.target);
+        var info = parse(en.target.textContent);
+        if (info) run(en.target, info);
+      });
+    }, { threshold: 0.6 });
+    nums.forEach(function (el) { obs.observe(el); });
+  }
+
   /* ---------- ambient timecode ---------- */
   function timecode() {
     var el = document.querySelector('[data-tc]');
@@ -262,6 +337,7 @@
   var yr = document.querySelector('[data-year]');
   if (yr) yr.textContent = '© ' + new Date().getFullYear();
 
+  heroIntro();
   renderFilters();
   renderGallery();
   bindDisciplines();
@@ -269,5 +345,6 @@
   observeReveal();
   scrollProgress();
   scrollSpy();
+  countUp();
   timecode();
 })();
